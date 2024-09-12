@@ -10,14 +10,14 @@ const getAllCountries = async () => {
 
 const initializeCountries = () => {
   return async (dispatch) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulates a 2-second delay
     try {
-      const countries = await getAllCountries(); // Await the countries data
-      dispatch(getCountries(countries)); // Now you can dispatch the countries data
+      const countries = await getAllCountries(); // Fetches the countries data from the API
+      dispatch(getCountries(countries)); // Dispatches the action to update the Redux store with the fetched countries data
     } catch (error) {
-      console.error("Error fetching countries:", error);
+      console.error("Error fetching countries:", error); // Logs any errors that occur during the fetch
     } finally {
-      dispatch(isLoading(false)); // Ensure loading state is updated
+      dispatch(isLoading(false)); // Dispatches the action to update the loading state in the Redux store to false
     }
   };
 };
