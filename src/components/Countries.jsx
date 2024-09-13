@@ -1,9 +1,21 @@
 import { useEffect } from "react";
-import { Col, Spinner, Row, Card, Form, ListGroup } from "react-bootstrap";
+import {
+  Col,
+  Spinner,
+  Row,
+  Card,
+  Form,
+  ListGroup,
+  InputGroup,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../services/countriesServices";
 import { search } from "../store/countriesSlice";
 import { LinkContainer } from "react-router-bootstrap";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 
 const Countries = () => {
   const dispatch = useDispatch(); // Get the dispatch function from Redux
@@ -44,21 +56,26 @@ const Countries = () => {
       <Row className="m-4">
         <Col className="mt-5 d-flex justify-content-center">
           <Form>
-            <Form.Control
-              style={{ width: "18rem" }}
-              type="search"
-              className="me-2"
-              placeholder="Search"
-              aria-label="Search"
-              onChange={(e) => dispatch(search(e.target.value))}
-            />
+            <InputGroup style={{ width: "18rem" }}>
+              <InputGroup.Text>
+                <SearchOutlinedIcon color="action" />
+              </InputGroup.Text>
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                onChange={(e) => dispatch(search(e.target.value))}
+              />
+            </InputGroup>
           </Form>
         </Col>
       </Row>
       <Row className="m-4">
         {countries
           .filter((country) => {
-            return country.name.common.toLowerCase().includes(searchInput);
+            return country.name.common
+              .toLowerCase()
+              .includes(searchInput.toLowerCase());
           })
           .map((country) => (
             <Col
@@ -68,7 +85,12 @@ const Countries = () => {
               lg={3}
               className="mt-5 d-flex justify-content-center"
             >
-              <Card>
+              <Card
+                style={{
+                  minWidthidth: "300px",
+                  minHeighteight: "400px",
+                }}
+              >
                 <LinkContainer
                   to={`/countries/${country.name.common}`}
                   state={{ country: country }}
@@ -77,49 +99,47 @@ const Countries = () => {
                     variant="top"
                     src={country.flags.svg}
                     alt={`${country.name.common} flag`}
-                    className="rounded h-50"
                     style={{
                       objectFit: "cover",
-                      minHeight: "200px",
-                      maxHeight: "200px",
+                      width: "100px",
+                      height: "100%",
+                      borderRadius: "50 50 0 0",
                     }}
                   />
                 </LinkContainer>
                 <Card.Body className="d-flex flex-column">
-                  <Card.Title>{country.name.common}</Card.Title>
-                  <Card.Subtitle className="mb-5 text-muted">
+                  <Card.Title style={{ fontSize: "16px" }}>
+                    {country.name.common}
+                  </Card.Title>
+                  <Card.Subtitle
+                    style={{ fontSize: "12px" }}
+                    className="mb-5 text-muted"
+                  >
                     {country.name.official}
                   </Card.Subtitle>
                   <ListGroup
                     variant="flush"
                     className="flex-grow-1 justify-content-center"
                   >
-                    <ListGroup.Item>
-                      <i className="bi bi-people me-2">
-                        {country.population.toLocaleString()}
-                      </i>
+                    <ListGroup.Item style={{ fontSize: "12px" }}>
+                      <PersonOutlineOutlinedIcon
+                        style={{ marginRight: "5px" }}
+                      />
+                      {country.population.toLocaleString()}
                     </ListGroup.Item>
-                    <ListGroup.Item>
-                      <i className="me-2">
-                        {Object.values(country.currencies || {})
-                          .map((currency) => currency.name)
-                          .join(", ") || "No currency"}
-                      </i>
+                    <ListGroup.Item style={{ fontSize: "12px" }}>
+                      <PaidOutlinedIcon style={{ marginRight: "5px" }} />
+                      {Object.values(country.currencies || {})
+                        .map((currency) => currency.name)
+                        .join(", ") || "No currency"}
                     </ListGroup.Item>
-                    <ListGroup.Item>
-                      <i className="me-2">
-                        {Object.values(country.languages || {})
-                          .map((language) => language)
-                          .join(", ") || "No official language"}
-                      </i>
+                    <ListGroup.Item style={{ fontSize: "12px" }}>
+                      <LanguageOutlinedIcon style={{ marginRight: "5px" }} />
+                      {Object.values(country.languages || {})
+                        .map((language) => language)
+                        .join(", ") || "No official language"}
                     </ListGroup.Item>
                   </ListGroup>
-                  {/* <Card.Text>
-                  <strong>Capital:</strong>{" "}
-                  {country.capital ? country.capital[0] : "N/A"}
-                  <br />
-                  <strong>Region:</strong> {country.region}
-                </Card.Text> */}
                 </Card.Body>
               </Card>
             </Col>
