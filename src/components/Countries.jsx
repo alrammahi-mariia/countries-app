@@ -20,7 +20,7 @@ import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 const Countries = () => {
   const dispatch = useDispatch(); // Get the dispatch function from Redux
 
-  // Extract the countries and isLoading state from the Redux store
+  // Extract the countries, isLoading and search state from the Redux store with useSelector function
   const countries = useSelector((state) => state.countries.countries);
   const isLoading = useSelector((state) => state.countries.isLoading);
   const searchInput = useSelector((state) => state.countries.search);
@@ -50,7 +50,6 @@ const Countries = () => {
   }
 
   // Handle the received data case here.
-
   return (
     <>
       <Row className="m-4">
@@ -87,11 +86,12 @@ const Countries = () => {
             >
               <Card
                 style={{
-                  minWidthidth: "300px",
-                  minHeighteight: "400px",
+                  minWidth: "300px",
+                  minHeight: "400px",
                 }}
               >
                 <LinkContainer
+                  // Navigate to the CountrySingle component and pass country data as state
                   to={`/countries/${country.name.common}`}
                   state={{ country: country }}
                 >
@@ -102,7 +102,7 @@ const Countries = () => {
                     style={{
                       objectFit: "cover",
                       width: "100px",
-                      height: "100%",
+                      height: "100px",
                       borderRadius: "50 50 0 0",
                     }}
                   />

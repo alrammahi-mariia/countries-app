@@ -10,7 +10,7 @@ const getAllCountries = async () => {
 
 const initializeCountries = () => {
   return async (dispatch) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulates a 2-second delay
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulates a 1-second delay
     try {
       const countries = await getAllCountries(); // Fetches the countries data from the API
       dispatch(getCountries(countries)); // Dispatches the action to update the Redux store with the fetched countries data

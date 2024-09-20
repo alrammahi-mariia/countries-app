@@ -4,6 +4,7 @@ import ErrorPage from "./components/ErrorPage";
 import Home from "./components/Home";
 import Layout from "./pages/Layout";
 import CountrySingle from "./components/CountySingle";
+import Register from "./components/Register";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Route>
             {/* This is where other routes will go to allow Layout to be visible everywhere */}
             <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/countries/:single" element={<CountrySingle />} />
             <Route path="/countries" element={<Countries />} />
             <Route path="*" element={<ErrorPage />} />
