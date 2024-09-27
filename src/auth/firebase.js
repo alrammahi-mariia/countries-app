@@ -65,6 +65,11 @@ const logout = () => {
 
 const addFavouriteToFirebase = async (uid, name) => {
   try {
+    //check whether name is undefined, empty, or not a string before attempting to add it to the Firestore database.
+    if (!name || typeof name !== "string" || name.trim() === "") {
+      console.error("Error adding favourite to Firebase: Invalid 'name' value");
+      return;
+    }
     await addDoc(collection(db, `users/${uid}/favourites`), { name });
 
     console.log("Favourite added to Firebase");

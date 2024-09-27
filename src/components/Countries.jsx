@@ -17,7 +17,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
-import { addFavourite } from "../store/favouritesSlice";
+import { addFavourite, removeFavourite } from "../store/favouritesSlice";
 
 const Countries = () => {
   const dispatch = useDispatch(); // Get the dispatch function from Redux
@@ -143,11 +143,18 @@ const Countries = () => {
                     </ListGroup.Item>
                   </ListGroup>
                   <Button
-                    onClick={() => dispatch(addFavourite())}
-                    variant="light"
-                    className="me-2 mb-2"
+                    variant="primary"
+                    onClick={() => dispatch(addFavourite(country.name.common))}
                   >
-                    Save
+                    Add Favourite
+                  </Button>
+                  <Button
+                    variant="warning"
+                    onClick={() =>
+                      dispatch(removeFavourite(country.name.common))
+                    }
+                  >
+                    Remove Favourite
                   </Button>
                 </Card.Body>
               </Card>
