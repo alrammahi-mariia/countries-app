@@ -1,4 +1,3 @@
-import { initializeAnalytics } from "firebase/analytics";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../services/countriesServices";
@@ -12,12 +11,17 @@ const Favourites = () => {
   const favouritesLoading = useSelector((state) => state.favourites.isLoading);
   const countriesLoading = useSelector((state) => state.countries.isLoading);
 
-  if (favouritesList !== null) {
-    countriesList = countriesList.filter((country) =>
-      favouritesList.includes(country.name.common)
-    );
-  } else {
-    countriesList = [];
+  console.log("favouritesList: ", favouritesList);
+  console.log("countriesList inside favourites: ", countriesList);
+
+  if (Array.isArray(favouritesList) && favouritesList.length > 0) {
+    if (favouritesList !== null) {
+      countriesList = countriesList.filter((country) =>
+        favouritesList.includes(country.name.common)
+      );
+    } else {
+      countriesList = [];
+    }
   }
 
   useEffect(() => {

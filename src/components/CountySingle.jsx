@@ -3,16 +3,14 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-const CountrySingle = () => {
-  // const params = useParams();
-
+const CountrySingle = (props) => {
   // retr
   const location = useLocation();
   const [weather, setWeather] = useState("");
   const [isWeatherLoading, setIsWeatherLoading] = useState(true);
   const navigate = useNavigate();
 
-  const country = location.state.country;
+  const country = props.country || location.state.country;
 
   useEffect(() => {
     axios

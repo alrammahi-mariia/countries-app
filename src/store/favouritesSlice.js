@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addFavouritetoFirebase, db } from "../auth/firebase";
-import { collection, query } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { isLoading } from "./countriesSlice";
 
 const initialState = {
@@ -36,7 +36,8 @@ export const getFavouriteFromSource = () => async (dispatch) => {
   const user = auth.currentUser;
   if (user) {
     const q = query(collection(db, `users/${user.uid}/favourites`));
-    const favourites = q.docs.map((doc) => doc.data().name);
+    const querySnapshot = await getDocs(q);
+    const favourites = querySnapshot.docs.map((doc) => doc.data().name);
     dispatch(getFavourites(favourites));
     dispatch(isLoading(false));
   }
