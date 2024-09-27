@@ -4,7 +4,7 @@ import ErrorPage from "./components/ErrorPage";
 import Home from "./components/Home";
 import Layout from "./pages/Layout";
 import Favourites from "./components/Favourites";
-import CountrySingle from "./components/CountySingle";
+import CountrySingle from "./components/CountrySingle";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import ProtectedRoute from "./auth/ProtectedRoute";

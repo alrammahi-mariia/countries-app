@@ -7,6 +7,7 @@ import {
   Form,
   ListGroup,
   InputGroup,
+  Button,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../services/countriesServices";
@@ -16,6 +17,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import { addFavourite } from "../store/favouritesSlice";
 
 const Countries = () => {
   const dispatch = useDispatch(); // Get the dispatch function from Redux
@@ -25,8 +27,8 @@ const Countries = () => {
   const isLoading = useSelector((state) => state.countries.isLoading);
   const searchInput = useSelector((state) => state.countries.search);
 
-  console.log("Countries: ", countries);
-  console.log("isLoading: ", isLoading);
+  // console.log("Countries: ", countries);
+  // console.log("isLoading: ", isLoading);
 
   // This hook runs a side effect when the component mounts. In this case, it dispatches the initializeCountries function to start fetching the country data.
   useEffect(() => {
@@ -140,6 +142,13 @@ const Countries = () => {
                         .join(", ") || "No official language"}
                     </ListGroup.Item>
                   </ListGroup>
+                  <Button
+                    onClick={() => dispatch(addFavourite())}
+                    variant="light"
+                    className="me-2 mb-2"
+                  >
+                    Save
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>

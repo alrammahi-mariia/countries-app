@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addFavouritetoFirebase, db } from "../auth/firebase";
 import { collection, getDocs, query } from "firebase/firestore";
-import { isLoading } from "./countriesSlice";
+import { addFavouriteToFirebase, auth, db } from "../auth/firebase";
 
 const initialState = {
   favourites: [],
+  isLoading: true,
 };
 
 export const favouritesSlice = createSlice({
@@ -13,7 +13,8 @@ export const favouritesSlice = createSlice({
   reducers: {
     addFavourite(state, action) {
       state.favourites = [...state.favourites, action.payload];
-      if (user) addFavouritetoFirebase(user.uid, action.payload);
+      const user = auth.currentUser;
+      if (user) addFavouriteToFirebase(user.uid, action.payload);
     },
     clearFavourites(state) {
       state.favourites = [];
@@ -32,7 +33,7 @@ export const favouritesSlice = createSlice({
   },
 });
 
-export const getFavouriteFromSource = () => async (dispatch) => {
+export const getFavouritesFromSource = () => async (dispatch) => {
   const user = auth.currentUser;
   if (user) {
     const q = query(collection(db, `users/${user.uid}/favourites`));
@@ -43,7 +44,12 @@ export const getFavouriteFromSource = () => async (dispatch) => {
   }
 };
 
-export const { addFavourite, clearFavourites, removeFavourite } =
-  favouritesSlice.actions;
+export const {
+  addFavourite,
+  clearFavourites,
+  removeFavourite,
+  getFavourites,
+  isLoading,
+} = favouritesSlice.actions;
 
 export default favouritesSlice.reducer;

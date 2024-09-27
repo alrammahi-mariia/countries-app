@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -9,9 +8,11 @@ import {
 import {
   addDoc,
   collection,
+  deleteDoc,
   getDocs,
   getFirestore,
   query,
+  where,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration which enables application to connect to Firebase
@@ -29,7 +30,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -63,17 +63,17 @@ const logout = () => {
   signOut(auth);
 };
 
-const addFavouritetoFirebase = async (uid, name) => {
+const addFavouriteToFirebase = async (uid, name) => {
   try {
     await addDoc(collection(db, `users/${uid}/favourites`), { name });
 
     console.log("Favourite added to Firebase");
   } catch (error) {
-    console.log("Error getting data from database");
+    console.log("Error adding data to firebase", error);
   }
 };
 
-const removeFavouritetoFirebase = async (uid, name) => {
+const removeFavouriteFromFirebase = async (uid, name) => {
   try {
     if (!name) {
       console.error(
@@ -97,7 +97,7 @@ const removeFavouritetoFirebase = async (uid, name) => {
 
 const clearFavouritesFromFirebase = async (uid) => {
   try {
-    const q = quert(collection(db, `users/${uid}/favourites`));
+    const q = query(collection(db, `users/${uid}/favourites`));
     querySnapshot.forEach((doc) => {
       deleteDoc(doc.ref);
       console.log("Favourites cleared from database");
@@ -110,10 +110,10 @@ const clearFavouritesFromFirebase = async (uid) => {
 export {
   auth,
   db,
+  addFavouriteToFirebase,
   loginWithEmailAndPassword,
   registerWithEmailAndPassword,
   logout,
-  addFavouritetoFirebase,
-  removeFavouritetoFirebase,
+  removeFavouriteFromFirebase,
   clearFavouritesFromFirebase,
 };
