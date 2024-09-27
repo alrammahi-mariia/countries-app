@@ -100,13 +100,26 @@ const removeFavouriteFromFirebase = async (uid, name) => {
   }
 };
 
+// const clearFavouritesFromFirebase = async (uid) => {
+//   try {
+//     const q = query(collection(db, `users/${uid}/favourites`));
+//     querySnapshot.forEach((doc) => {
+//       deleteDoc(doc.ref);
+//       console.log("Favourites cleared from database");
+//     });
+//   } catch (error) {
+//     console.log("Error clearing data from database", error);
+//   }
+// };
+
 const clearFavouritesFromFirebase = async (uid) => {
   try {
     const q = query(collection(db, `users/${uid}/favourites`));
+    const querySnapshot = await getDocs(q); // Retrieve the query snapshot
     querySnapshot.forEach((doc) => {
-      deleteDoc(doc.ref);
-      console.log("Favourites cleared from database");
+      deleteDoc(doc.ref); // Delete each document
     });
+    console.log("Favourites cleared from database");
   } catch (error) {
     console.log("Error clearing data from database", error);
   }
