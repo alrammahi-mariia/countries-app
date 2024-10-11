@@ -2,14 +2,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../auth/firebase";
 import { LinkContainer } from "react-router-bootstrap";
 import { Button } from "react-bootstrap";
-import "./Home.css";
 
 const Home = () => {
   const [user, loading] = useAuthState(auth);
 
   return (
     <div className="d-flex min-vh-100">
-      <div className="align-self-center text-center text-light col-md-8 offset-md-2">
+      <div className="align-self-center text-center text-dark col-md-8 offset-md-2">
         <div className="mb-4">
           <h1 className="display-1 fw-bolder">Welcome to Countries App!</h1>
         </div>
@@ -34,7 +33,7 @@ const Home = () => {
           <div>
             <p>Check out the source code:</p>
             <Button
-              variant="outline-light"
+              variant="outline-dark"
               href=""
               target="_blank"
               rel="noopener noreferrer"

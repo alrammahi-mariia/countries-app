@@ -62,12 +62,10 @@ const Favourites = () => {
               onChange={(e) => setSearch(e.target.value)}
             />
           </Form>
+          <Button onClick={() => dispatch(clearFavourites(favouritesList))}>
+            Clear Favourites
+          </Button>
         </Col>
-      </Row>
-      <Row xs={2} md={3} lg={4} className="g-3">
-        <Button onClick={() => dispatch(clearFavourites(favouritesList))}>
-          Clear Favourites
-        </Button>
       </Row>
       <Row xs={2} md={3} lg={4} className="g-3">
         {countriesList

@@ -17,18 +17,21 @@ const CountryCard = ({ country }) => {
             // Navigate to the CountrySingle component and pass country data as state
             to={`/countries/${country.name.common}`}
             state={{ country: country }}
+            style={{ cursor: "pointer" }}
           >
-            <Card.Img
-              variant="top"
-              src={country.flags.svg}
-              alt={`${country.name.common} flag`}
-              className="rounded h-50"
-              style={{
-                objectFit: "cover",
-                minHeight: "200px",
-                maxHeight: "200px",
-              }}
-            />
+            <div>
+              <Card.Img
+                variant="top"
+                src={country.flags.svg}
+                alt={`${country.name.common} flag`}
+                className="rounded h-50"
+                style={{
+                  objectFit: "cover",
+                  minHeight: "200px",
+                  maxHeight: "200px",
+                }}
+              />
+            </div>
           </LinkContainer>
           <Card.Body className="d-flex flex-column">
             <Card.Title style={{ fontSize: "16px" }}>

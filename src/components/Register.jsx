@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, registerWithEmailAndPassword } from "../auth/firebase";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -29,9 +29,6 @@ export default function Login() {
         <Row>
           <Col className="mt-4 d-flex justify-content-center">
             <Form>
-              <h2 className="mt-4">
-                Register to Countries App <i className="bi bi-globe"></i>
-              </h2>
               <Form.Group className="mb-3" controlId="formBasicUsername">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -63,7 +60,13 @@ export default function Login() {
 
               <Form.Text muted className="mt-3">
                 Already have an account?
-                <Link onClick={() => navigate("/login")}>Login here</Link>
+                <Button
+                  variant="light"
+                  size="sm"
+                  onClick={() => navigate("/login")}
+                >
+                  Login here
+                </Button>
               </Form.Text>
             </Form>
           </Col>
