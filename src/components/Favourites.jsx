@@ -6,7 +6,6 @@ import {
   clearFavourites,
   getFavouritesFromSource,
 } from "../store/favouritesSlice";
-import CountrySingle from "./CountrySingle";
 import CountryCard from "./CountryCard";
 
 // Favourites to be written
@@ -78,13 +77,15 @@ const Favourites = () => {
               .includes(search.toLowerCase());
           })
           .map((country) => (
-            <CountryCard
-              flags={country.flags}
-              name={country.name}
-              population={country.population}
-              currencies={country.currencies}
-              languages={country.languages}
-            />
+            <Col
+              sm={6}
+              md={4}
+              lg={3}
+              className="mt-5 d-flex justify-content-center"
+              key={country.cca3}
+            >
+              <CountryCard country={country} />
+            </Col>
           ))}
       </Row>
     </Container>

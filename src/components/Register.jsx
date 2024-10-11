@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, registerWithEmailAndPassword } from "../auth/firebase";
-import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-
-  const [user, loading, error] = useAuthState(auth);
-
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate("/countries");
+  }, [user, loading, navigate]);
 
   const handleRegister = () => {
     if (!name) {
@@ -20,31 +23,52 @@ const Register = () => {
     registerWithEmailAndPassword(name, email, password);
   };
 
-  // TODO: Add a check to see if user is logged in and navigate to countries if logged in
-
   return (
     <div>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Full Name"
-      />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      <Button onClick={handleRegister}>Register</Button>
+      <Container fluid>
+        <Row>
+          <Col className="mt-4 d-flex justify-content-center">
+            <Form>
+              <h2 className="mt-4">
+                Register to Countries App <i className="bi bi-globe"></i>
+              </h2>
+              <Form.Group className="mb-3" controlId="formBasicUsername">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter name"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter email"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                />
+              </Form.Group>
+              <Button onClick={handleRegister}>Register</Button>
+
+              <Form.Text muted className="mt-3">
+                Already have an account?
+                <Link onClick={() => navigate("/login")}>Login here</Link>
+              </Form.Text>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
-};
-
-export default Register;
+}

@@ -1,5 +1,12 @@
 import { useEffect } from "react";
-import { Col, Spinner, Row, Form, InputGroup } from "react-bootstrap";
+import {
+  Col,
+  Spinner,
+  Row,
+  Form,
+  InputGroup,
+  Container,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../services/countriesServices";
 import { search } from "../store/countriesSlice";
@@ -34,51 +41,60 @@ const Countries = () => {
     );
   }
 
+  // let active = 2;
+  // let items = [];
+  // for (let number = 1; number <= 5; number++) {
+  //   items.push(
+  //     <Pagination.Item key={number} active={number === active}>
+  //       {number}
+  //     </Pagination.Item>
+  //   );
+  // }
+
+  // const paginationBasic = (
+  //   <div>
+  //     <Pagination>{items}</Pagination>
+  //     <br />
+  //   </div>
+  // );
+
+  // render(paginationBasic);
+
   // Handle the received data case here.
   return (
     <>
-      <Row className="m-4">
-        <Col className="mt-5 d-flex justify-content-center">
-          <Form>
-            <InputGroup style={{ width: "18rem" }}>
-              <InputGroup.Text>
-                <SearchOutlinedIcon color="action" />
-              </InputGroup.Text>
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                onChange={(e) => dispatch(search(e.target.value))}
-              />
-            </InputGroup>
-          </Form>
-        </Col>
-      </Row>
-      <Row className="m-4">
-        {countries
-          .filter((country) => {
-            return country.name.common
-              .toLowerCase()
-              .includes(searchInput.toLowerCase());
-          })
-          .map((country) => (
-            <Col
-              sm={6}
-              md={4}
-              lg={3}
-              className="mt-5 d-flex justify-content-center"
-              key={country.cca3}
-            >
-              <CountryCard
-                flags={country.flags}
-                name={country.name}
-                population={country.population}
-                currencies={country.currencies}
-                languages={country.languages}
-              />
-            </Col>
-          ))}
-      </Row>
+      <Container fluid>
+        <Row>
+          <Col className="mt-5 d-flex justify-content-center">
+            <Form>
+              <InputGroup style={{ width: "18rem" }}>
+                <InputGroup.Text>
+                  <SearchOutlinedIcon color="action" />
+                </InputGroup.Text>
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  onChange={(e) => dispatch(search(e.target.value))}
+                />
+              </InputGroup>
+            </Form>
+          </Col>
+        </Row>
+        <Row xs={2} md={3} lg={4} className="g-3">
+          {countries
+            .filter((country) => {
+              return country.name.common
+                .toLowerCase()
+                .includes(searchInput.toLowerCase());
+            })
+            .map((country) => (
+              <Col className="mt-5" key={country.cca3}>
+                <CountryCard country={country} />
+              </Col>
+            ))}
+        </Row>
+      </Container>
     </>
   );
 };
