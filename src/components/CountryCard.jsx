@@ -1,13 +1,16 @@
-import { Button, Card, Col, ListGroup } from "react-bootstrap";
+import { Card, Col, ListGroup } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import { addFavourite, removeFavourite } from "../store/favouritesSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 
 const CountryCard = ({ country }) => {
   const dispatch = useDispatch(); // Get the dispatch function from Redux
+  const favouritesList = useSelector((state) => state.favourites.favourites);
 
   return (
     <div>
@@ -43,6 +46,16 @@ const CountryCard = ({ country }) => {
             >
               {country.name.official}
             </Card.Subtitle>
+            {favouritesList.includes(country.name.common) ? (
+              <FavoriteOutlinedIcon
+                style={{ color: "red" }}
+                onClick={() => dispatch(removeFavourite(country.name.common))}
+              />
+            ) : (
+              <FavoriteBorderOutlinedIcon
+                onClick={() => dispatch(addFavourite(country.name.common))}
+              />
+            )}
             <ListGroup
               variant="flush"
               className="flex-grow-1 justify-content-center"
@@ -64,7 +77,7 @@ const CountryCard = ({ country }) => {
                   .join(", ") || "No official language"}
               </ListGroup.Item>
             </ListGroup>
-            <Button
+            {/* <Button
               variant="primary"
               onClick={() => dispatch(addFavourite(country.name.common))}
             >
@@ -75,7 +88,7 @@ const CountryCard = ({ country }) => {
               onClick={() => dispatch(removeFavourite(country.name.common))}
             >
               Remove Favourite
-            </Button>
+            </Button> */}
           </Card.Body>
         </Card>
       </Col>

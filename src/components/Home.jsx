@@ -2,6 +2,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../auth/firebase";
 import { LinkContainer } from "react-router-bootstrap";
 import { Button } from "react-bootstrap";
+import ArrowRightAltOutlinedIcon from "@mui/icons-material/ArrowRightAltOutlined";
 
 const Home = () => {
   const [user, loading] = useAuthState(auth);
@@ -24,7 +25,7 @@ const Home = () => {
                 <p>Login to explore the countries</p>
                 <LinkContainer to="/login">
                   <Button variant="primary" hidden={loading}>
-                    Login <i className="bi bi-arrow-right-short"></i>
+                    Login <ArrowRightAltOutlinedIcon />
                   </Button>
                 </LinkContainer>
               </div>

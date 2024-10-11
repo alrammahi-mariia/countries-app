@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  InputGroup,
+  Row,
+  Spinner,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../services/countriesServices";
 import {
@@ -7,6 +15,7 @@ import {
   getFavouritesFromSource,
 } from "../store/favouritesSlice";
 import CountryCard from "./CountryCard";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 // Favourites to be written
 const Favourites = () => {
@@ -53,14 +62,18 @@ const Favourites = () => {
       <Row>
         <Col className="mt-5 d-flex justify-content-center">
           <Form>
-            <Form.Control
-              style={{ width: "18rem" }}
-              type="search"
-              className="me-2"
-              placeholder="Search"
-              aria-label="Search"
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <InputGroup style={{ width: "18rem" }}>
+              <InputGroup.Text>
+                <SearchOutlinedIcon color="action" />
+              </InputGroup.Text>
+              <Form.Control
+                type="search"
+                className="me-2"
+                placeholder="Search"
+                aria-label="Search"
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </InputGroup>
           </Form>
           <Button onClick={() => dispatch(clearFavourites(favouritesList))}>
             Clear Favourites

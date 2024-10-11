@@ -7,6 +7,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { LinkContainer } from "react-router-bootstrap";
 import { Outlet } from "react-router-dom";
 import { auth, logout } from "../auth/firebase";
+import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 const Layout = () => {
   const [user, loading] = useAuthState(auth);
@@ -24,7 +26,8 @@ const Layout = () => {
           <Container className="justify-content-end">
             <LinkContainer to="/">
               <Navbar.Brand href="/">
-                Countries App <i className="bi bi-globe"></i>
+                <PublicOutlinedIcon fontSize="large" />
+                Countries App
               </Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -55,7 +58,8 @@ const Layout = () => {
                 ) : (
                   <>
                     <Navbar.Text className="me-2">
-                      <i className="bi bi-person-circle"></i> {user.email}
+                      <AccountCircleOutlinedIcon />
+                      {user.email}
                     </Navbar.Text>
                     <Button variant="primary" hidden={loading} onClick={logout}>
                       Logout
