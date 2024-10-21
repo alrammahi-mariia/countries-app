@@ -26,7 +26,10 @@ const Layout = () => {
           <Container className="justify-content-end">
             <LinkContainer to="/">
               <Navbar.Brand href="/">
-                <PublicOutlinedIcon fontSize="large" />
+                <PublicOutlinedIcon
+                  fontSize="large"
+                  style={{ marginRight: "10px" }}
+                />
                 Countries App
               </Navbar.Brand>
             </LinkContainer>
@@ -58,7 +61,9 @@ const Layout = () => {
                 ) : (
                   <>
                     <Navbar.Text className="me-2">
-                      <AccountCircleOutlinedIcon />
+                      <AccountCircleOutlinedIcon
+                        style={{ marginRight: "5px" }}
+                      />
                       {user.email}
                     </Navbar.Text>
                     <Button variant="primary" hidden={loading} onClick={logout}>

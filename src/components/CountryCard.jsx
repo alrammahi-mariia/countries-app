@@ -1,4 +1,4 @@
-import { Card, Col, ListGroup } from "react-bootstrap";
+import { Card, Col, ListGroup, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
@@ -37,25 +37,39 @@ const CountryCard = ({ country }) => {
             </div>
           </LinkContainer>
           <Card.Body className="d-flex flex-column">
-            <Card.Title style={{ fontSize: "16px" }}>
-              {country.name.common}
-            </Card.Title>
-            <Card.Subtitle
-              style={{ fontSize: "12px" }}
-              className="mb-5 text-muted"
-            >
-              {country.name.official}
-            </Card.Subtitle>
-            {favouritesList.includes(country.name.common) ? (
-              <FavoriteOutlinedIcon
-                style={{ color: "red" }}
-                onClick={() => dispatch(removeFavourite(country.name.common))}
-              />
-            ) : (
-              <FavoriteBorderOutlinedIcon
-                onClick={() => dispatch(addFavourite(country.name.common))}
-              />
-            )}
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <Card.Title style={{ fontSize: "16px" }}>
+                  {country.name.common}
+                </Card.Title>
+                <Card.Subtitle
+                  style={{ fontSize: "14px" }}
+                  className="my-1 text-muted"
+                >
+                  {country.capital}
+                </Card.Subtitle>
+              </div>
+              <div>
+                {favouritesList.includes(country.name.common) ? (
+                  <FavoriteOutlinedIcon
+                    style={{
+                      color: "red",
+                      cursor: "pointer",
+                    }}
+                    onClick={() =>
+                      dispatch(removeFavourite(country.name.common))
+                    }
+                    fontSize="large"
+                  />
+                ) : (
+                  <FavoriteBorderOutlinedIcon
+                    onClick={() => dispatch(addFavourite(country.name.common))}
+                    style={{ cursor: "pointer" }}
+                    fontSize="large"
+                  />
+                )}
+              </div>
+            </div>
             <ListGroup
               variant="flush"
               className="flex-grow-1 justify-content-center"
@@ -77,18 +91,6 @@ const CountryCard = ({ country }) => {
                   .join(", ") || "No official language"}
               </ListGroup.Item>
             </ListGroup>
-            {/* <Button
-              variant="primary"
-              onClick={() => dispatch(addFavourite(country.name.common))}
-            >
-              Add Favourite
-            </Button>
-            <Button
-              variant="warning"
-              onClick={() => dispatch(removeFavourite(country.name.common))}
-            >
-              Remove Favourite
-            </Button> */}
           </Card.Body>
         </Card>
       </Col>
