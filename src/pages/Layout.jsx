@@ -21,59 +21,55 @@ const Layout = () => {
           variant="light"
           expand="lg"
           collapseOnSelect
-          className="shadow-sm"
+          className="px-2 px-md-4"
         >
-          <Container className="justify-content-end">
-            <LinkContainer to="/">
-              <Navbar.Brand href="/">
-                <PublicOutlinedIcon
-                  fontSize="large"
-                  style={{ marginRight: "10px" }}
-                />
-                Countries App
-              </Navbar.Brand>
-            </LinkContainer>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
-                <LinkContainer to="/">
-                  <Nav.Link>Home</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/countries">
-                  <Nav.Link>Countries</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/favourites">
-                  <Nav.Link>Favourites</Nav.Link>
-                </LinkContainer>
-              </Nav>
-              <Nav>
-                {!user ? (
-                  <>
-                    <LinkContainer to="/register">
-                      <Nav.Link>Register</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/login">
-                      <Button variant="primary" hidden={loading}>
-                        Login
-                      </Button>
-                    </LinkContainer>
-                  </>
-                ) : (
-                  <>
-                    <Navbar.Text className="me-2">
-                      <AccountCircleOutlinedIcon
-                        style={{ marginRight: "5px" }}
-                      />
-                      {user.email}
-                    </Navbar.Text>
-                    <Button variant="primary" hidden={loading} onClick={logout}>
-                      Logout
+          <LinkContainer to="/">
+            <Navbar.Brand href="/">
+              <PublicOutlinedIcon
+                fontSize="large"
+                style={{ marginRight: "10px" }}
+              />
+              Countries App
+            </Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <LinkContainer to="/">
+                <Nav.Link>Home</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/countries">
+                <Nav.Link>Countries</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/favourites">
+                <Nav.Link>Favourites</Nav.Link>
+              </LinkContainer>
+            </Nav>
+            <Nav>
+              {!user ? (
+                <>
+                  <LinkContainer to="/register">
+                    <Nav.Link>Register</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/login">
+                    <Button variant="primary" hidden={loading}>
+                      Login
                     </Button>
-                  </>
-                )}
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
+                  </LinkContainer>
+                </>
+              ) : (
+                <>
+                  <Navbar.Text className="me-2">
+                    <AccountCircleOutlinedIcon style={{ marginRight: "5px" }} />
+                    {user.email}
+                  </Navbar.Text>
+                  <Button variant="primary" hidden={loading} onClick={logout}>
+                    Logout
+                  </Button>
+                </>
+              )}
+            </Nav>
+          </Navbar.Collapse>
         </Navbar>
       </Row>
       <Row>
