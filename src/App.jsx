@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./auth/firebase";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const App = () => {
   const [user] = useAuthState(auth);
