@@ -8,6 +8,8 @@ const CountrySingle = (props) => {
   const [weather, setWeather] = useState("");
   const [isWeatherLoading, setIsWeatherLoading] = useState(true);
   const navigate = useNavigate();
+  // Get the cca3 codes of the neighbouring countries
+  const borderCountries = Object.values(country.borders ?? {});
 
   const country = props.country || location.state.country;
 
