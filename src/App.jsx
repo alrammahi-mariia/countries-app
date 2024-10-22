@@ -11,6 +11,7 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./auth/firebase";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const [user] = useAuthState(auth);
@@ -34,6 +35,7 @@ const App = () => {
           </Route>
         </Route>
       </Routes>
+      <Toaster position="top-center" />
     </BrowserRouter>
   );
 };
