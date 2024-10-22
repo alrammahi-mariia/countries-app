@@ -12,6 +12,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./auth/firebase";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Toaster } from "react-hot-toast";
+import ScrollToTop from "react-scroll-to-top";
 
 const App = () => {
   const [user] = useAuthState(auth);
@@ -36,6 +37,7 @@ const App = () => {
         </Route>
       </Routes>
       <Toaster position="top-center" />
+      <ScrollToTop smooth />
     </BrowserRouter>
   );
 };
