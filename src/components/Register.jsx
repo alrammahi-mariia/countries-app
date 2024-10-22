@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, registerWithEmailAndPassword } from "../auth/firebase";
-import { Button, Col, Container, Form, FormGroup, Row } from "react-bootstrap";
+import { Button, Container, Form, FormGroup, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,7 +19,10 @@ export default function Login() {
 
   const handleRegister = () => {
     if (!name) {
-      alert("Name is required");
+      return toast.error("Name is required");
+    }
+    if (!email) {
+      return toast.error("Email is required");
     }
     registerWithEmailAndPassword(name, email, password);
   };

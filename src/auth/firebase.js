@@ -14,6 +14,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import toast from "react-hot-toast";
 
 // Your web app's Firebase configuration which enables application to connect to Firebase
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -37,15 +38,17 @@ const db = getFirestore(app);
 const loginWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    toast.success("You are now logged in!");
   } catch (error) {
     console.log(error);
-    alert(error.message);
+    toast.error(error.message);
   }
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
+    toast.success("You are now registered!");
     const user = res.user;
     await addDoc(collection(db, "users"), {
       uid: user.uid,
@@ -55,12 +58,13 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     });
   } catch (error) {
     console.log(error);
-    alert(error.message);
+    toast.error(error.message);
   }
 };
 
 const logout = () => {
   signOut(auth);
+  toast.success("You are now logged out!");
 };
 
 const addFavouriteToFirebase = async (uid, name) => {
