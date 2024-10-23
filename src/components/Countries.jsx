@@ -47,12 +47,9 @@ const Countries = () => {
 
   // Filter the countries based on the search input and selected region
   const filteredCountries = countries.filter((country) => {
-    const matchesSearch = country.name.common
-      .toLowerCase()
-      .includes(searchInput.toLowerCase());
     const matchesRegion =
       selectedRegion === "All" || country.region === selectedRegion;
-    return matchesSearch && matchesRegion;
+    return matchesRegion;
   });
 
   // Handle region selection from the dropdown
@@ -79,7 +76,7 @@ const Countries = () => {
                   />
                 </InputGroup>
               </Form>
-              <Dropdown onSelect={handleRegionSelect}>
+              <Dropdown className="mx-2" onSelect={handleRegionSelect}>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
                   {selectedRegion === "All"
                     ? "Filter by Region"
