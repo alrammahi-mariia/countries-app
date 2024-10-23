@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const CountrySingle = (props) => {
@@ -8,10 +10,9 @@ const CountrySingle = (props) => {
   const [weather, setWeather] = useState("");
   const [isWeatherLoading, setIsWeatherLoading] = useState(true);
   const navigate = useNavigate();
-  // Get the cca3 codes of the neighbouring countries
-  const borderCountries = Object.values(country.borders ?? {});
 
   const country = props.country || location.state.country;
+  const countriesList = useSelector((state) => state.countries.countries);
 
   useEffect(() => {
     axios
@@ -96,12 +97,28 @@ const CountrySingle = (props) => {
           </Row>
           <p>
             <strong>Border Countries:</strong>{" "}
-            {country.borders
-              ? country.borders.map((border) => (
-                  <Button key={border} variant="light" className="me-2 mb-2">
-                    {border}
-                  </Button>
-                ))
+            {country.borders && country.borders.length > 0
+              ? country.borders.map((borderCountryCode) => {
+                  const borderCountry = countriesList.find(
+                    (country) => country.cca3 === borderCountryCode
+                  );
+
+                  if (borderCountry) {
+                    return (
+                      <LinkContainer
+                        key={borderCountry.cca3}
+                        to={`/countries/${borderCountry.name.common}`}
+                        state={{ country: borderCountry }}
+                      >
+                        <Button variant="light" size="sm" className="me-2 mb-2">
+                          {borderCountry.name.common}
+                        </Button>
+                      </LinkContainer>
+                    );
+                  }
+
+                  return null; // Return null if the border country is not found
+                })
               : "None"}
           </p>
         </Col>
