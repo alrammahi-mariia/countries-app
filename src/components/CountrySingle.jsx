@@ -196,7 +196,7 @@ const CountrySingle = (props) => {
     const fetchImages = async () => {
       try {
         const imagesResponse = await axios.get(
-          `https://api.unsplash.com/search/photos?query=${country.name.common}&client_id=YOUR_UNSPLASH_ACCESS_KEY&per_page=4`
+          `https://api.unsplash.com/search/photos?query=${country.name.common}&client_id=2lXBk9ePji-M9C13-80CJdgssbY2HnK1Qho4DNgh23I&per_page=4`
         );
         setImages(imagesResponse.data.results);
       } catch (error) {
@@ -329,7 +329,7 @@ const CountrySingle = (props) => {
                   </div>
                 </div>
                 <hr />
-                <h6>Next 3 Days Forecast:</h6>
+                <h6>Next 5 Days Forecast:</h6>
                 {forecast.map((day, index) => (
                   <div key={index} className="d-flex align-items-center mb-3">
                     <img
