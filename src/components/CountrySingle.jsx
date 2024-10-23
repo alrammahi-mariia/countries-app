@@ -79,14 +79,14 @@ const CountrySingle = (props) => {
             <Col>
               <Row>
                 <p>
-                  <strong>Weather Today:</strong>
+                  <strong>Weather in {country.capital} today:</strong>
                 </p>
               </Row>
               <div className="d-flex align-items-center mt-4">
                 <img
                   src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
                   alt={weather.weather[0].description}
-                  style={{ width: "50px", height: "50px" }}
+                  style={{ width: "100px", height: "100px" }}
                 />
                 <div className="ms-3">
                   <h5>{parseInt(weather.main.temp)} °C</h5>
@@ -122,6 +122,21 @@ const CountrySingle = (props) => {
               : "None"}
           </p>
         </Col>
+        {/* <Col>
+          <iframe
+            title="Google Maps Embed"
+            src={`https://www.google.com/maps/embed/v1/place?key=${
+              process.env.REACT_APP_GOOGLE_MAPS_EMBED_API_KEY
+            }&q=${encodeURIComponent(
+              country.capital
+                ? country.capital + " " + country.name.common
+                : country.name.common
+            )}`}
+            width="100%"
+            height="100%"
+            allowFullScreen
+          ></iframe>
+        </Col> */}
       </Row>
     </Container>
   );

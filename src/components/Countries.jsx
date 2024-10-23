@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Col,
   Spinner,
@@ -6,6 +6,7 @@ import {
   Form,
   InputGroup,
   Container,
+  Dropdown,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCountries } from "../services/countriesServices";
@@ -14,7 +15,10 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import CountryCard from "./CountryCard";
 
 const Countries = () => {
-  // Extract the countries, isLoading and search state from the Redux store with useSelector function
+  // State to manage the selected region
+  const [selectedRegion, setSelectedRegion] = useState("All");
+
+  // Extract the countries, isLoading, and search state from the Redux store with useSelector function
   const countries = useSelector((state) => state.countries.countries);
   const isLoading = useSelector((state) => state.countries.isLoading);
   const searchInput = useSelector((state) => state.countries.search);
@@ -41,39 +45,77 @@ const Countries = () => {
     );
   }
 
-  // Handle the received data case here.
+  // Filter the countries based on the search input and selected region
+  const filteredCountries = countries.filter((country) => {
+    const matchesSearch = country.name.common
+      .toLowerCase()
+      .includes(searchInput.toLowerCase());
+    const matchesRegion =
+      selectedRegion === "All" || country.region === selectedRegion;
+    return matchesSearch && matchesRegion;
+  });
+
+  // Handle region selection from the dropdown
+  const handleRegionSelect = (region) => {
+    setSelectedRegion(region);
+  };
+
   return (
     <>
       <Container fluid>
         <Row>
-          <Col className="mt-5 d-flex justify-content-center">
-            <Form>
-              <InputGroup style={{ width: "18rem" }}>
-                <InputGroup.Text>
-                  <SearchOutlinedIcon color="action" />
-                </InputGroup.Text>
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  onChange={(e) => dispatch(search(e.target.value))}
-                />
-              </InputGroup>
-            </Form>
-          </Col>
+          <div className="d-flex justify-content-xl-between">
+            <Col className="mt-5 d-flex justify-content-center">
+              <Form>
+                <InputGroup style={{ width: "18rem" }}>
+                  <InputGroup.Text>
+                    <SearchOutlinedIcon color="action" />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    onChange={(e) => dispatch(search(e.target.value))}
+                  />
+                </InputGroup>
+              </Form>
+              <Dropdown onSelect={handleRegionSelect}>
+                <Dropdown.Toggle variant="light" id="dropdown-basic">
+                  {selectedRegion === "All"
+                    ? "Filter by Region"
+                    : selectedRegion}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => handleRegionSelect("All")}>
+                    All
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleRegionSelect("Africa")}>
+                    Africa
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleRegionSelect("Americas")}>
+                    Americas
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleRegionSelect("Asia")}>
+                    Asia
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleRegionSelect("Europe")}>
+                    Europe
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleRegionSelect("Oceania")}>
+                    Oceania
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Col>
+          </div>
         </Row>
         <Row xs={2} md={3} lg={4} className="g-3">
-          {countries
-            .filter((country) => {
-              return country.name.common
-                .toLowerCase()
-                .includes(searchInput.toLowerCase());
-            })
-            .map((country) => (
-              <Col className="mt-5" key={country.cca3}>
-                <CountryCard country={country} />
-              </Col>
-            ))}
+          {filteredCountries.map((country) => (
+            <Col className="mt-5" key={country.cca3}>
+              <CountryCard country={country} />
+            </Col>
+          ))}
         </Row>
       </Container>
     </>
