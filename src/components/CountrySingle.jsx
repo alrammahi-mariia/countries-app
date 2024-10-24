@@ -87,13 +87,9 @@ const CountrySingle = (props) => {
 
   return (
     <>
-      <Container fluid className="p-5">
+      <Container fluid className="p-2">
         {/* Back Button */}
-        <Button
-          variant="light"
-          onClick={() => navigate("/countries")}
-          className="mb-4"
-        >
+        <Button variant="light" onClick={() => navigate("/countries")}>
           ← Back
         </Button>
       </Container>
@@ -110,7 +106,6 @@ const CountrySingle = (props) => {
                   style={{ maxHeight: "500px", objectFit: "cover" }}
                 />
                 <Carousel.Caption>
-                  <h3>{image.description || image.alt_description}</h3>
                   <p>
                     Photo by {image.user.first_name} {image.user.last_name} on{" "}
                     <a href={`${image.urls.regular}`}>Unsplash</a>
@@ -185,14 +180,14 @@ const CountrySingle = (props) => {
                 </Row>
               </Card.Body>
             </Card>
-
-            {/* Unsplash Images Carousel */}
           </Col>
 
           {/* Weather Sidebar */}
           <Col md={4}>
-            <Card className="mb-4 shadow-sm">
-              <Card.Header>Weather in {country.capital}</Card.Header>
+            <Card className="mb-1 shadow-sm">
+              <Card.Header>
+                Weather in <strong>{country.capital}</strong> today
+              </Card.Header>
               <Card.Body>
                 <div className="d-flex align-items-center">
                   <img
@@ -206,8 +201,8 @@ const CountrySingle = (props) => {
                   </div>
                 </div>
                 <hr />
-                <h6>Next 5 Days Forecast:</h6>
-                {forecast.map((day, index) => (
+                <h6>Next 3 Days Forecast:</h6>
+                {forecast.slice(1, 4).map((day, index) => (
                   <div key={index} className="d-flex align-items-center mb-3">
                     <img
                       src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
@@ -217,7 +212,11 @@ const CountrySingle = (props) => {
                     <div className="ms-3">
                       <p className="mb-0">
                         <strong>
-                          {new Date(day.dt_txt).toLocaleDateString()}
+                          {new Date(day.dt_txt).toLocaleDateString("en-FI", {
+                            weekday: "long",
+                            month: "long",
+                            day: "numeric",
+                          })}
                         </strong>
                       </p>
                       <p className="mb-0">
@@ -231,6 +230,7 @@ const CountrySingle = (props) => {
             </Card>
           </Col>
         </Row>
+
         {/* News Section */}
         <Row className="mt-5">
           <Col>
