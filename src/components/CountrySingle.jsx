@@ -87,7 +87,7 @@ const CountrySingle = (props) => {
 
   return (
     <>
-      <Container fluid className="p-2">
+      <Container fluid className="p-3">
         {/* Back Button */}
         <Button variant="light" onClick={() => navigate("/countries")}>
           ← Back
@@ -114,9 +114,9 @@ const CountrySingle = (props) => {
               </Carousel.Item>
             ))}
           </Carousel>
-
-          {/* Main Country Info Card */}
-
+        </Row>
+        {/* Main Country Info Card */}
+        <Row>
           <Col md={8}>
             <Card className="mb-4 shadow-sm">
               <Card.Body>
@@ -135,6 +135,9 @@ const CountrySingle = (props) => {
                   <Col md={6}>
                     <h1 className="mb-4">{country.name.common}</h1>
                     <p>
+                      <strong>Official name:</strong> {country.name.official}
+                    </p>
+                    <p>
                       <strong>Population:</strong>{" "}
                       {country.population.toLocaleString()}
                     </p>
@@ -143,6 +146,9 @@ const CountrySingle = (props) => {
                     </p>
                     <p>
                       <strong>Sub Region:</strong> {country.subregion}
+                    </p>
+                    <p>
+                      <strong>Continent:</strong> {country.continents}
                     </p>
                     <p>
                       <strong>Capital:</strong> {country.capital}
@@ -234,7 +240,9 @@ const CountrySingle = (props) => {
         {/* News Section */}
         <Row className="mt-5">
           <Col>
-            <h2 className="mb-4">Latest News about {country.name.common}</h2>
+            <h2 className="mb-4">
+              Latest headlines from {country.name.common}
+            </h2>
             <Row>
               {news.length > 0 ? (
                 news.slice(0, 5).map((article, index) => (
