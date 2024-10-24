@@ -22,7 +22,8 @@ const CountrySingle = (props) => {
   useEffect(() => {
     axios
       .get(
-        `https://newsapi.org/v2/everything?q=${country.name.common}&apiKey=${
+        `https://newsapi.org/v2/everything?qInTitle=${country.name.common}
+        &from=2024-10-1&sortBy=relevancy&language=en&apiKey=${
           import.meta.env.VITE_NEWS_API_KEY
         }`
       )
@@ -208,30 +209,33 @@ const CountrySingle = (props) => {
                 </div>
                 <hr />
                 <h6>Next 3 Days Forecast:</h6>
-                {forecast.slice(1, 4).map((day, index) => (
-                  <div key={index} className="d-flex align-items-center mb-3">
-                    <img
-                      src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
-                      alt={day.weather[0].description}
-                      style={{ width: "50px", height: "50px" }}
-                    />
-                    <div className="ms-3">
-                      <p className="mb-0">
-                        <strong>
-                          {new Date(day.dt_txt).toLocaleDateString("en-FI", {
-                            weekday: "long",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                        </strong>
-                      </p>
-                      <p className="mb-0">
-                        {parseInt(day.main.temp)} °C,{" "}
-                        {day.weather[0].description}
-                      </p>
+                {forecast
+                  .slice(1, 4)
+
+                  .map((day, index) => (
+                    <div key={index} className="d-flex align-items-center mb-3">
+                      <img
+                        src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
+                        alt={day.weather[0].description}
+                        style={{ width: "50px", height: "50px" }}
+                      />
+                      <div className="ms-3">
+                        <p className="mb-0">
+                          <strong>
+                            {new Date(day.dt_txt).toLocaleDateString("en-FI", {
+                              weekday: "long",
+                              month: "long",
+                              day: "numeric",
+                            })}
+                          </strong>
+                        </p>
+                        <p className="mb-0">
+                          {parseInt(day.main.temp)} °C,{" "}
+                          {day.weather[0].description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </Card.Body>
             </Card>
           </Col>
@@ -245,35 +249,41 @@ const CountrySingle = (props) => {
             </h2>
             <Row>
               {news.length > 0 ? (
-                news.slice(0, 5).map((article, index) => (
-                  <Col md={6} lg={4} key={index} className="mb-4">
-                    <Card className="h-100">
-                      {article.urlToImage && (
-                        <Card.Img
-                          variant="top"
-                          src={article.urlToImage}
-                          alt={article.title}
-                        />
-                      )}
-                      <Card.Body>
-                        <Card.Title>{article.title}</Card.Title>
-                        <Card.Text>
-                          {article.description
-                            ? article.description.slice(0, 100) + "..."
-                            : "No description available."}
-                        </Card.Text>
-                        <Button
-                          variant="primary"
-                          href={article.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Read Full Article
-                        </Button>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                ))
+                news
+                  .slice(0, 6)
+                  .filter(
+                    (article) =>
+                      !article.title.toLowerCase().includes("removed")
+                  )
+                  .map((article, index) => (
+                    <Col md={6} lg={4} key={index} className="mb-4">
+                      <Card className="h-100">
+                        {article.urlToImage && (
+                          <Card.Img
+                            variant="top"
+                            src={article.urlToImage}
+                            alt={article.title}
+                          />
+                        )}
+                        <Card.Body>
+                          <Card.Title>{article.title}</Card.Title>
+                          <Card.Text>
+                            {article.description
+                              ? article.description.slice(0, 100) + "..."
+                              : "No description available."}
+                          </Card.Text>
+                          <Button
+                            variant="primary"
+                            href={article.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Read Full Article
+                          </Button>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ))
               ) : (
                 <p>No news articles available.</p>
               )}
