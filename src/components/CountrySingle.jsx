@@ -99,7 +99,8 @@ const CountrySingle = (props) => {
       </Container>
       <Container>
         <Row>
-          <Carousel className="mb-4">
+          {/* Country images carousel */}
+          <Carousel className="mb-4" variant="light">
             {images.map((image, index) => (
               <Carousel.Item key={index}>
                 <img
@@ -109,12 +110,18 @@ const CountrySingle = (props) => {
                   style={{ maxHeight: "500px", objectFit: "cover" }}
                 />
                 <Carousel.Caption>
-                  <p>{image.description || image.alt_description}</p>
+                  <h3>{image.description || image.alt_description}</h3>
+                  <p>
+                    Photo by {image.user.first_name} {image.user.last_name} on{" "}
+                    <a href={`${image.urls.regular}`}>Unsplash</a>
+                  </p>
                 </Carousel.Caption>
               </Carousel.Item>
             ))}
           </Carousel>
+
           {/* Main Country Info Card */}
+
           <Col md={8}>
             <Card className="mb-4 shadow-sm">
               <Card.Body>
