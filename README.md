@@ -5,6 +5,7 @@ The **Countries App** is a web application that allows users to explore detailed
 ## Features
 
 - **Search and Filter Countries**: Browse a list of countries with options to search by name and filter by region.
+- **Save/remove countries to/from Favourites**: Save a country to a list of Favourites powered by Firestore database.
 - **Country Details**: View detailed information about each country, including population, language, capital, currency and more.
 - **Weather Forecast**: Get current weather data in a selected country capital and a 3-day weather forecast using the OpenWeather API.
 - **Latest News**: Read the latest news headlines and summaries related to the country, fetched from the News API.
@@ -14,9 +15,12 @@ The **Countries App** is a web application that allows users to explore detailed
 ## Technologies Used
 
 - **React**: For building the user interface.
-- **React Bootstrap**: For styling and responsive layout.
+- **React Bootstrap and Bootstrap**: For styling and responsive layout.
+- **Bootstrap Icons**: For modern icons.
+- **React Router**: For website routing.
 - **Redux**: For state management.
-- **Firebase**: For authentication and hosting.
+- **Axios**: For handling API requests.
+- **Firebase**: For authentication and database.
 - **REST Countries API**: For country data.
 - **OpenWeather API**: For weather forecasts.
 - **News API**: For fetching news articles.
@@ -27,9 +31,9 @@ The **Countries App** is a web application that allows users to explore detailed
 
 ## Screenshots
 
-<img src="./src/assets/homepage.png" alt="homepage" width="600px">
-<img src="./src/assets/countries.png" alt="countries" width="600px" >
-<img src="./src/assets/country_single.png" alt="country-single" width="400px">
+<img src="./src/assets/homepage.png" alt="homepage" width="1434">
+<img src="./src/assets/countries.png" alt="countries" width="1434" >
+<img src="./src/assets/country_single.png" alt="country-single" width="1434">
 
 ## Getting Started
 
@@ -77,6 +81,7 @@ The **Countries App** is a web application that allows users to explore detailed
 4. **Set up Firebase:**
 
    - Create a Firebase project and enable authentication with email and password.
+   - Set up Firestore database.
 
 5. **Run the development server:**
 
@@ -103,4 +108,4 @@ This project is licensed under the MIT License.
 
 ## Credits
 
-This project was developed as part of the React Advanced course at Business College Helsinki. A big thank you to our course instructor, [Martin Holland](https://github.com/martin-holland), for the invaluable guidance and support throughout the course!
+This project was developed as part of the React Advanced course at Business College Helsinki. Thank to our course instructor, [Martin Holland](https://github.com/martin-holland), for the guidance and support throughout the course!
