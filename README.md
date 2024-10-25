@@ -27,9 +27,9 @@ The **Countries App** is a web application that allows users to explore detailed
 
 ## Screenshots
 
-<img src="./src/assets/homepage.png" alt="homepage">
-<img src="./src/assets/countries.png" alt="countries">
-<img src="./src/assets/country_single.png" alt="country-single">
+<img src="./src/assets/homepage.png" alt="homepage" width="600px">
+<img src="./src/assets/countries.png" alt="countries" width="600px" >
+<img src="./src/assets/country_single.png" alt="country-single" width="400px">
 
 ## Getting Started
 
