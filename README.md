@@ -108,4 +108,4 @@ This project is licensed under the MIT License.
 
 ## Credits
 
-This project was developed as part of the React Advanced course at Business College Helsinki. Thank to our course instructor, [Martin Holland](https://github.com/martin-holland), for the guidance and support throughout the course!
+This project was developed as part of the React Advanced course at Business College Helsinki. Thanks to our course instructor, [Martin Holland](https://github.com/martin-holland), for the guidance and support throughout the course!
