@@ -27,6 +27,8 @@ const Countries = () => {
   // This hook runs a side effect when the component mounts. In this case, it dispatches the initializeCountries function to start fetching the country data.
   useEffect(() => {
     dispatch(initializeCountries());
+    // Clear the search input when the component mounts
+    dispatch(search(""));
   }, [dispatch]);
 
   // Handle the loading case here first (use Col, and Spinner)
@@ -58,6 +60,8 @@ const Countries = () => {
   // Handle region selection from the dropdown
   const handleRegionSelect = (region) => {
     setSelectedRegion(region);
+    // Clear the search input when selecting a new region
+    dispatch(search(""));
   };
 
   return (
@@ -75,6 +79,7 @@ const Countries = () => {
                     type="search"
                     placeholder="Search"
                     aria-label="Search"
+                    value={searchInput}
                     onChange={(e) => dispatch(search(e.target.value))}
                   />
                 </InputGroup>

@@ -22,14 +22,14 @@ const Home = () => {
       <div className="d-flex flex-column justify-content-center align-items-center col-md-8 offset-md-2 text-center text-light flex-grow-1">
         <div className="mt-4">
           <h1 className="display-1 fw-bolder">
-            Welcome to explore the countries!
+            Welcome to the World Explorer!
           </h1>
         </div>
         <div className="d-flex flex-sm-row justify-content-center gap-2 gap-sm-5">
           {!user && (
             <>
               <div className="mb-2">
-                <p>Login to explore the countries:</p>
+                <p>Login to start your adventure!</p>
                 <LinkContainer to="/login">
                   <Button variant="primary" hidden={loading}>
                     Login <i className="bi bi-box-arrow-in-right"></i>
@@ -38,17 +38,6 @@ const Home = () => {
               </div>
             </>
           )}
-          <div>
-            <p>Have a look at the source code:</p>
-            <Button
-              variant="light"
-              href=""
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <i className="bi bi-github"></i> GitHub
-            </Button>
-          </div>
         </div>
       </div>
       <div className="text-center text-light mb-3">
